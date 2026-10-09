@@ -1,0 +1,226 @@
+
+1.  Closed-form solution
+
+Given:
+
+    sum from i = 1 to 50 of (6i^2 - 4i + 5)
+
+Split the summation:
+
+    6 sum(i^2) - 4 sum(i) + 5 sum(1)
+
+Use:
+
+    sum(i) = n(n+1)/2
+    sum(i^2) = n(n+1)(2n+1)/6
+
+For n = 50:
+
+    6[50(51)(101)/6] - 4[50(51)/2] + 5(50)
+
+    = 50(51)(101) - 2(50)(51) + 250
+    = 257550 - 5100 + 250
+    = 252700
+
+Answer: 252700
+
+2.  Big-O runtimes in descending order of growth 
+
+Given:
+
+    O(n)
+    O((lg n)^2)
+    O(log n)
+    O(sqrt(n) lg n)
+    O(sqrt(n^3))
+
+Rewrite sqrt(n^3) as n^(3/2).
+
+Descending order:
+
+    O(n^(3/2))
+    O(n)
+    O(sqrt(n) lg n)
+    O((lg n)^2)
+    O(log n)
+
+Answer:
+
+    O(sqrt(n^3)) > O(n) > O(sqrt(n) lg n) > O((lg n)^2) > O(log n)
+
+3.  Worst-case runtime function
+
+Let:
+
+    n = A.length
+    m = B.length
+    k = min(n,m)
+
+Assume each numbered operation/condition has cost 1, and in the worst
+case every if-condition that can execute causes the statement inside it
+to execute.
+
+Runtime table:
+
+Operation Frequency
+
+i <- 0 1 j <- 0 1 s <- 0 1
+
+while i < A.length and j < B.length k + 1 if A[i] and B[j] k s <- s + 1
+k i <- i + 1 k j <- j + 1 k
+
+while i < A.length (n - k) + 1 if A[i] n - k s <- s + 1 n - k i <- i + 1
+n - k
+
+while j < B.length (m - k) + 1 if not B[j] m - k s <- s + 1 m - k j <-
+j + 1 m - k
+
+return s 1
+
+Therefore:
+
+T(n,m) = 3 + (k+1) + 4k + [(n-k)+1] + 3(n-k) + [(m-k)+1] + 3(m-k) + 1
+
+Simplify:
+
+    T(n,m) = 4n + 4m - 3k + 7
+
+Since k = min(n,m):
+
+    T(n,m) = 4n + 4m - 3min(n,m) + 7
+
+Asymptotically:
+
+    Theta(n + m)
+
+If both arrays have the same size n, then k = n:
+
+    T(n) = 5n + 7
+
+so the runtime is:
+
+    Theta(n)
+
+4.  Constant-time algorithm C(n)
+
+We need an algorithm that returns:
+
+    sum from i = 1 to n of i^3
+
+when n is positive, and returns 0 otherwise.
+
+Use the identity:
+
+    1^3 + 2^3 + ... + n^3 = [n(n+1)/2]^2
+
+Pseudocode:
+
+C(n) if n <= 0 return 0
+
+    x <- n(n + 1) / 2
+    return x * x
+
+Worst-case runtime:
+
+The algorithm performs only a fixed number of arithmetic operations and
+one comparison. It does not contain a loop or recursion.
+
+Therefore:
+
+    T(n) = O(1)
+
+Proof of correctness:
+
+Case 1: n <= 0
+
+The specification says C(n) must return 0. The algorithm immediately
+returns 0, so it is correct.
+
+Case 2: n > 0
+
+The known summation identity is:
+
+    sum from i = 1 to n of i^3 = [n(n+1)/2]^2
+
+The algorithm computes:
+
+    x = n(n+1)/2
+
+and then returns:
+
+    x^2 = [n(n+1)/2]^2
+
+which is exactly the required summation.
+
+Therefore C(n) is correct for all integer values of n.
+
+5.  Asymptotic notation proofs
+
+5(a)
+
+Prove:
+
+    2n^2 + 8n - 10 = o(n^3)
+
+By the definition of little-o, f(n) = o(g(n)) if:
+
+    lim as n -> infinity of f(n)/g(n) = 0
+
+Let:
+
+    f(n) = 2n^2 + 8n - 10
+    g(n) = n^3
+
+Then:
+
+    (2n^2 + 8n - 10) / n^3
+    = 2/n + 8/n^2 - 10/n^3
+
+Taking the limit as n -> infinity:
+
+    lim [2/n + 8/n^2 - 10/n^3]
+    = 0 + 0 - 0
+    = 0
+
+Therefore:
+
+    2n^2 + 8n - 10 = o(n^3)
+
+5(b)
+
+Prove:
+
+If f(n) = Theta(g(n)), then f(n) = O(g(n)) and f(n) = Omega(g(n)).
+
+Definition of Theta:
+
+f(n) = Theta(g(n)) means there exist positive constants c1, c2, and n0
+such that for all n >= n0:
+
+    0 <= c1*g(n) <= f(n) <= c2*g(n)
+
+From:
+
+    f(n) <= c2*g(n)
+
+there exists a positive constant c2 and n0 such that the inequality
+holds for all n >= n0.
+
+By the definition of Big-O:
+
+    f(n) = O(g(n))
+
+Also, from:
+
+    c1*g(n) <= f(n)
+
+there exists a positive constant c1 and n0 such that the inequality
+holds for all n >= n0.
+
+
+    f(n) = Omega(g(n))
+
+
+    f(n) = Theta(g(n))
+        implies
+    f(n) = O(g(n)) and f(n) = Omega(g(n)).
