@@ -1,0 +1,215 @@
+Exercise 02:
+
+Use the substitution method to show that each recurrence has the given
+upper bound.
+
+1.  Show T(n) = T(floor(n/2)) + 1 is O(lg(n))
+
+We want to prove:
+
+    T(n) <= c lg(n)
+
+for some constant c > 0 and sufficiently large n.
+
+Inductive hypothesis:
+
+Assume that for all smaller values k < n,
+
+    T(k) <= c lg(k)
+
+Since floor(n/2) < n, we can apply the hypothesis:
+
+    T(floor(n/2)) <= c lg(floor(n/2))
+
+Using floor(n/2) <= n/2:
+
+    T(n)
+    = T(floor(n/2)) + 1
+    <= c lg(floor(n/2)) + 1
+    <= c lg(n/2) + 1
+
+Since:
+
+    lg(n/2) = lg(n) - 1
+
+we get:
+
+    T(n)
+    <= c(lg(n) - 1) + 1
+    = c lg(n) - c + 1
+
+Choose c >= 1. Then:
+
+    -c + 1 <= 0
+
+so:
+
+    T(n) <= c lg(n)
+
+Therefore:
+
+    T(n) = O(lg(n))
+
+2.  Show T(n) = 2T(ceil(n/2)) + n is O(n lg(n))
+
+We want to prove:
+
+    T(n) <= c n lg(n)
+
+The ceiling makes the induction slightly cleaner if we allow an
+additional linear term. We prove the stronger bound:
+
+    T(n) <= c n lg(n) + d n
+
+for suitable positive constants c and d.
+
+Inductive hypothesis:
+
+For all smaller values k < n,
+
+    T(k) <= c k lg(k) + d k
+
+Let:
+
+    m = ceil(n/2)
+
+Then:
+
+    T(n)
+    = 2T(m) + n
+    <= 2[c m lg(m) + d m] + n
+
+For even n, m = n/2, so:
+
+    T(n)
+    <= 2[c(n/2)lg(n/2) + d(n/2)] + n
+    = c n(lg(n) - 1) + d n + n
+    = c n lg(n) + (d - c + 1)n
+
+Choose c >= 1. Then:
+
+    d - c + 1 <= d
+
+and therefore:
+
+    T(n) <= c n lg(n) + d n
+
+For odd n, ceil(n/2) differs from n/2 by only 1/2, which changes the
+bound only by lower-order terms. By choosing c and d large enough, the
+same inequality holds for all sufficiently large n.
+
+Since:
+
+    c n lg(n) + d n = O(n lg(n))
+
+we conclude:
+
+    T(n) = O(n lg(n))
+
+3.  Show T(n) = T(n - 1) + n is O(n^2)
+
+We want to prove:
+
+    T(n) <= c n^2
+
+for some constant c > 0 and sufficiently large n.
+
+Inductive hypothesis:
+
+Assume:
+
+    T(n - 1) <= c(n - 1)^2
+
+Substitute into the recurrence:
+
+    T(n)
+    = T(n - 1) + n
+    <= c(n - 1)^2 + n
+
+Expand:
+
+    = c(n^2 - 2n + 1) + n
+    = c n^2 - 2cn + c + n
+
+We want this to be at most c n^2.
+
+It is enough to show:
+
+    -2cn + c + n <= 0
+
+Rearrange:
+
+    n(2c - 1) >= c
+
+For example, choose c = 1. Then for n >= 1:
+
+    n >= 1
+
+so the inequality holds.
+
+Therefore:
+
+    T(n) <= c n^2
+
+and:
+
+    T(n) = O(n^2)
+
+4.  Show T(n) = T(sqrt(n)) + 2 is O(sqrt(n) lg(n))
+
+We want to prove:
+
+    T(n) <= c sqrt(n) lg(n)
+
+for some constant c > 0 and sufficiently large n.
+
+Inductive hypothesis:
+
+Assume for all smaller k < n:
+
+    T(k) <= c sqrt(k) lg(k)
+
+Since sqrt(n) < n for n > 1, apply the hypothesis with k = sqrt(n):
+
+    T(sqrt(n))
+    <= c sqrt(sqrt(n)) lg(sqrt(n))
+
+Now:
+
+    sqrt(sqrt(n)) = n^(1/4)
+
+and:
+
+    lg(sqrt(n)) = (1/2)lg(n)
+
+Therefore:
+
+    T(n)
+    = T(sqrt(n)) + 2
+    <= c n^(1/4) (1/2)lg(n) + 2
+    = (c/2)n^(1/4)lg(n) + 2
+
+We need:
+
+    (c/2)n^(1/4)lg(n) + 2
+    <= c n^(1/2)lg(n)
+
+For sufficiently large n,
+
+    n^(1/2)lg(n)
+
+grows faster than:
+
+    n^(1/4)lg(n)
+
+and the constant 2.
+
+Thus we can choose constants c > 0 and n0 large enough so that:
+
+    T(n) <= c sqrt(n) lg(n)
+
+for every n >= n0.
+
+Therefore:
+
+    T(n) = O(sqrt(n) lg(n))
