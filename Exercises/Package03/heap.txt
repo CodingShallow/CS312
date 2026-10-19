@@ -1,0 +1,42 @@
+Exercise 04: Heap Sort Trace Tables
+
+1.  MAXHEAPIFY(A, 3) A = [12, 81, 23, 43, 12, 90, 72, 19]
+
+At index 3: A[3] = 43 Left child = A[7] = 19 There is no right child.
+
+43 is already greater than its child, so no swap is needed.
+
+Step Array 0 [12, 81, 23, 43, 12, 90, 72, 19]
+
+Final: [12, 81, 23, 43, 12, 90, 72, 19]
+
+2.  MAXHEAPIFY(A, 0) A = [18, 80, 34, 66, 49, 55, 90, 27]
+
+At index 0, the largest of 18, 80, and 34 is 80. Swap 18 and 80.
+
+The recursive MAXHEAPIFY call on index 1 then moves 66 above 18. That
+embedded call is treated as one change.
+
+Step Array 0 [18, 80, 34, 66, 49, 55, 90, 27] 1 [80, 18, 34, 66, 49, 55,
+90, 27] 2 [80, 66, 34, 18, 49, 55, 90, 27]
+
+Final: [80, 66, 34, 18, 49, 55, 90, 27]
+
+3.  BUILDHEAP(A) A = [32, 75, 21, 50, 63, 10]
+
+
+Step Array 0 [32, 75, 21, 50, 63, 10] 1 [75, 63, 21, 50, 32, 10]
+
+Final: [75, 63, 21, 50, 32, 10]
+
+4.  HEAPSORT(A) A = [7, 12, 9, 4]
+
+
+Step Array 0 [7, 12, 9, 4] 1 [12, 7, 9, 4] BUILDHEAP 2 [4, 7, 9, 12]
+Swap root with last heap element 3 [9, 7, 4, 12] MAXHEAPIFY 4 [4, 7, 9,
+12] Swap root with last heap element 5 [7, 4, 9, 12] MAXHEAPIFY 6 [4, 7,
+9, 12] Swap root with last heap element
+
+The final MAXHEAPIFY on a heap of size 1 makes no array change.
+
+Final: [4, 7, 9, 12
