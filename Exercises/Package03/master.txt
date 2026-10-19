@@ -1,0 +1,79 @@
+Exercise 01g
+
+Master Theorem form: T(n) = aT(n/b) + f(n)
+
+1.  T(n) = 4T(n/2) + n
+
+a = 4 b = 2 f(n) = n
+
+n^(log_b(a)) = n^(log_2(4)) = n^2
+
+Since f(n) = n grows polynomially slower than n^2, this is Master
+Theorem Case 1.
+
+Therefore: T(n) = Theta(n^2)
+
+2.  T(n) = 4T(n/2) + n^2
+
+a = 4 b = 2 f(n) = n^2
+
+n^(log_b(a)) = n^(log_2(4)) = n^2
+
+Since f(n) = n^2 has the same growth rate as n^(log_b(a)), this is
+Master Theorem Case 2.
+
+Therefore: T(n) = Theta(n^2 log n)
+
+3.  T(n) = 4T(n/2) + n^3
+
+a = 4 b = 2 f(n) = n^3
+
+n^(log_b(a)) = n^(log_2(4)) = n^2
+
+Since f(n) = n^3 grows polynomially faster than n^2, this is Master
+Theorem Case 3.
+
+Regularity condition: 4(n/2)^3 = n^3/2 <= c(n^3), where c = 1/2 < 1.
+
+Therefore: T(n) = Theta(n^3)
+
+4.  T(n) = T(9n/10) + n
+
+Rewrite: T(9n/10) = T(n/(10/9))
+
+a = 1 b = 10/9 f(n) = n
+
+n^(log_b(a)) = n^(log_(10/9)(1)) = n^0 = 1
+
+Since f(n) = n grows polynomially faster than 1, this is Master Theorem
+Case 3.
+
+Regularity condition: 1(9n/10) = (9/10)n <= cn, where c = 9/10 < 1.
+
+Therefore: T(n) = Theta(n)
+
+5.  T(n) = 2T(n/4) + sqrt(n)
+
+a = 2 b = 4 f(n) = sqrt(n)
+
+n^(log_b(a)) = n^(log_4(2)) = n^(1/2) = sqrt(n)
+
+Since f(n) = sqrt(n) has the same growth rate as n^(log_b(a)), this is
+Master Theorem Case 2.
+
+Therefore: T(n) = Theta(sqrt(n) log n)
+
+6.  T(n) = 7T(n/2) + n^2
+
+a = 7 b = 2 f(n) = n^2
+
+n^(log_b(a)) = n^(log_2(7)) log_2(7) is approximately 2.807.
+
+So: n^(log_b(a)) is approximately n^2.807.
+
+Since n^2 grows polynomially slower than n^2.807, this is Master Theorem
+Case 1.
+
+Therefore: T(n) = Theta(n^(log_2(7)))
+
+Approximately: T(n) = Theta(n^2.807)
