@@ -56,9 +56,6 @@ We want to prove:
 
     T(n) <= c n lg(n)
 
-The ceiling makes the induction slightly cleaner if we allow an
-additional linear term. We prove the stronger bound:
-
     T(n) <= c n lg(n) + d n
 
 for suitable positive constants c and d.
@@ -93,10 +90,6 @@ Choose c >= 1. Then:
 and therefore:
 
     T(n) <= c n lg(n) + d n
-
-For odd n, ceil(n/2) differs from n/2 by only 1/2, which changes the
-bound only by lower-order terms. By choosing c and d large enough, the
-same inequality holds for all sufficiently large n.
 
 Since:
 
