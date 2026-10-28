@@ -1,0 +1,153 @@
+Lab 04 - Counting Sort (Part 1)
+Runtime Analysis
+
+Task 3A: Range()
+
+Input size:
+n = v.size()
+
+Assume each statement has cost 1.
+
+Runtime table:
+
+Statement                                  Cost    Frequency
+------------------------------------------------------------
+lo = v[0]                                  1       1
+hi = v[0]                                  1       1
+i = 1                                      1       1
+i < v.size()                               1       n
+i++                                        1       n - 1
+if (v[i] < lo)                             1       n - 1
+lo = v[i]                                  1       at most n - 1
+if (v[i] > hi)                             1       n - 1
+hi = v[i]                                  1       at most n - 1
+
+Worst case:
+
+T(n)
+= 1 + 1 + 1 + n + (n - 1) + (n - 1)
+  + (n - 1) + (n - 1) + (n - 1)
+
+T(n) = 6n - 2
+
+Therefore:
+
+T(n) = Theta(n)
+
+
+Task 3B: RangedSort()
+
+Input sizes:
+
+n = A.size()
+r = hi - lo + 1
+
+where r is the number of possible integer values from the
+minimum value through the maximum value.
+
+RangedSort invokes Range(), which takes Theta(n).
+
+Initial statements:
+
+Statement                                  Cost    Frequency
+------------------------------------------------------------
+declare lo                                 1       1
+declare hi                                 1       1
+Range(A, lo, hi)                           1       1 call
+n = A.size()                               1       1
+range = hi - lo + 1                        1       1
+B.resize(n)                                1       1
+if (range <= 2 * n)                        1       1
+
+
+Case 1: range <= 2n
+
+The counting-sort branch executes.
+
+Creating vector<int> C(range, 0) requires Theta(r).
+
+Loop 1: Count shifted values
+
+Statement                                  Cost    Frequency
+------------------------------------------------------------
+i = 0                                      1       1
+i < n                                      1       n + 1
+i++                                        1       n
+C[A[i] - lo]++                             1       n
+
+Loop 1 cost:
+1 + (n + 1) + n + n = 3n + 2
+
+
+Loop 2: Cumulative counts
+
+Statement                                  Cost    Frequency
+------------------------------------------------------------
+i = 1                                      1       1
+i < range                                  1       r
+i++                                        1       r - 1
+C[i] = C[i] + C[i - 1]                    1       r - 1
+
+Loop 2 cost:
+1 + r + (r - 1) + (r - 1) = 3r - 1
+
+
+Loop 3: Build B from right to left
+
+Statement                                  Cost    Frequency
+------------------------------------------------------------
+i = n - 1                                  1       1
+i >= 0                                     1       n + 1
+i--                                        1       n
+shifted = A[i] - lo                        1       n
+C[shifted]--                               1       n
+B[C[shifted]] = A[i]                       1       n
+
+Loop 3 cost:
+1 + (n + 1) + n + n + n + n = 5n + 2
+
+
+Combining the major work:
+
+Range()            = Theta(n)
+Counter creation   = Theta(r)
+Loop 1             = Theta(n)
+Loop 2             = Theta(r)
+Loop 3             = Theta(n)
+
+Therefore:
+
+T(n, r) = Theta(n + r)
+
+But counting sort is used only when:
+
+r <= 2n
+
+Therefore:
+
+T(n, r) = Theta(n)
+
+
+Case 2: range > 2n
+
+The function copies A into B without sorting.
+
+Copy loop:
+
+Statement                                  Cost    Frequency
+------------------------------------------------------------
+i = 0                                      1       1
+i < n                                      1       n + 1
+i++                                        1       n
+B[i] = A[i]                                1       n
+
+Copy loop cost:
+1 + (n + 1) + n + n = 3n + 2
+
+Range() is Theta(n), so this branch is also Theta(n).
+
+
+Final results:
+
+Range()      = Theta(n)
+RangedSort() = Theta(n)
