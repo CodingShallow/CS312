@@ -1,0 +1,85 @@
+Lab 04 - Counting Sort (Part 2)
+Runtime Analysis
+
+Task 4A: hash()
+
+Input size:
+One character, so the input size is constant.
+
+Statement                         Cost    Frequency
+--------------------------------------------------
+if (isalpha(c))                   1       1
+c = tolower(c)                    1       at most 1
+return c - 'a'                    1       at most 1
+return 26                         1       at most 1
+
+Worst-case runtime:
+T(n) = 3
+
+Therefore:
+hash() = Theta(1)
+
+
+Task 4B: isWord()
+
+Input size:
+n = str.length()
+
+Statement                         Cost    Frequency
+--------------------------------------------------
+i = 0                             1       1
+i < str.size()                    1       n + 1
+i++                               1       n
+if (!isalpha(str[i]))             1       n
+return false                      1       at most 1
+return true                       1       at most 1
+
+Worst-case runtime:
+T(n) = 1 + (n + 1) + n + n + 1
+T(n) = 3n + 3
+
+Therefore:
+isWord() = Theta(n)
+
+
+Task 4C: Anagram()
+
+Input size:
+n = A.length()
+
+First, Anagram() invokes isWord(A).
+isWord(A) = Theta(n)
+
+If A is not a word, Anagram() returns A after isWord() finishes,
+so the runtime is Theta(n).
+
+If A is a word:
+
+1. Create vector<int> C(26, 0)
+   Since 26 is constant, this is Theta(1).
+
+2. Count the letters.
+
+Statement                         Cost    Frequency
+--------------------------------------------------
+i = 0                             1       1
+i < A.size()                      1       n + 1
+i++                               1       n
+C[hash(A[i])]++                   1       n
+
+Because hash() is Theta(1), this loop is Theta(n).
+
+3. Construct the sorted lowercase string.
+
+The outer loop runs exactly 26 times, which is constant.
+Across all inner while loops, exactly n characters are appended.
+Therefore this section is Theta(n).
+
+Overall:
+T(n) = Theta(n) + Theta(1) + Theta(n) + Theta(n)
+T(n) = Theta(n)
+
+FINAL RESULTS
+hash()    = Theta(1)
+isWord()  = Theta(n)
+Anagram() = Theta(n)
