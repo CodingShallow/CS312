@@ -50,9 +50,9 @@ n^(log_b(a))
 
 
     f(n) = n
-    n^(log_b(a)) = n^0.528
+    n^(log_b(a)) = n^0.5
 
-Since n grows polynomially faster than n^0.528,
+Since n grows polynomially faster than n^0.5,
 this is Master Theorem Case 3.
 
 
